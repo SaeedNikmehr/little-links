@@ -21,4 +21,5 @@ const mongoConnect = (callback) => {
         process.exit(1)
     })
 };
+
 module.exports = mongoConnect;
