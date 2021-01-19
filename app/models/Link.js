@@ -1,13 +1,23 @@
-let urls;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-class Link {
-    static async injectDB(conn) {
-        if (urls) {
-            return
+const linkSchema = new Schema(
+    {
+        link: {
+            type: String,
+            required: true
+        },
+        shortLink: {
+            type: String,
+            required: true
+        },
+        views: {
+            type: Number,
+            default: 0
         }
-        
-        urls = await conn.db(process.env.MFLIX_NS).collection("urls")
-        
-    }
-}
-module.exports = Link;
+    },
+    { timestamps: true }
+    );
+    
+    module.exports = mongoose.model('Link', linkSchema);
+    

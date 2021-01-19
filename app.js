@@ -1,22 +1,28 @@
 const express = require('express')
-const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const path = require('path')
-
-const {mongoConnect , port} = require('./config/database')
+const {database} = require('./config/database')
+const {port} = require('./config/app')
 
 const app = express();
 
+require('./bootstrap/app')(app)
+require('./routes')(app)
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 
 
 
-
-
-
-mongoConnect().then(()=>{
+//connect to db and run server
+mongoose.connect(database.mongodb.url+database.mongodb.database,
+  { useUnifiedTopology: true, useNewUrlParser: true })
+  .then(result => {
+    console.log(`connected to database`)
     app.listen(port, () => {
-        console.log(`listening on port ${port}`)
-      })
-});
+      console.log(`listening on port ${port}`)
+    });
+  })
+  .catch(err => console.log(err));
+  
   
