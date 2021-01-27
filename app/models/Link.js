@@ -2,6 +2,8 @@ const { response } = require('express');
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
+const {modelResponse} = require('../providers/services/response')
+
 const Schema = mongoose.Schema;
 const charset= '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 autoIncrement.initialize(mongoose);
@@ -21,7 +23,7 @@ linkSchema.statics.convert = async function(originalLink){
     const result = await this.create({originalLink})
     const shortLink = await base62Encode(result.counter)
     const updated = await this.updateOne({counter:result.counter}, { shortLink })
-    return modelResponse('update',updated)
+    return modelResponse('update', updated, result)
 }
 
 
@@ -50,18 +52,3 @@ base62Decode = async(chars)=>{
     return counter
 }
 
-modelResponse = (type = 'insert' , item)=>{
-    if(type === 'insert'){
-        return true
-    }
-    if(type === 'update'){
-        if(item.nModified > 0)
-        return {status:"success", message:"updated successfully"}
-        return{status:"error",message:"update failed"}
-    }
-    if(type === 'find'){
-        if(item)
-        return {status:"success", message:"item found",data:item}
-        return{status:"error",message:"item not found"}
-    }
-}
