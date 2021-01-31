@@ -1,4 +1,3 @@
-const { response } = require('express');
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
@@ -23,7 +22,13 @@ linkSchema.statics.convert = async function(originalLink){
     const result = await this.create({originalLink})
     const shortLink = await base62Encode(result.counter)
     const updated = await this.updateOne({counter:result.counter}, { shortLink })
-    return modelResponse('update', updated, result)
+    const extra = {
+        _id:result._id,
+        shortLink, 
+        originalLink,
+        expireDate:result.expireDate
+    }
+    return modelResponse('update', updated, extra)
 }
 
 
