@@ -26,7 +26,8 @@ linkSchema.statics.convert = async function(originalLink){
         _id:result._id,
         shortLink, 
         originalLink,
-        expireDate:result.expireDate
+        expireDate:result.expireDate,
+        views:result.views
     }
     return modelResponse('update', updated, extra)
 }
@@ -34,7 +35,7 @@ linkSchema.statics.convert = async function(originalLink){
 
 linkSchema.statics.revert = async function(shortLink){
     const counter = await base62Decode(shortLink)
-    const result = await this.findOne({counter},'shortLink originalLink views')
+    const result = await this.findOne({counter},'shortLink originalLink views expireDate')
     return modelResponse('find',result)
 }
 

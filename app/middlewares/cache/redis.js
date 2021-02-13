@@ -8,7 +8,14 @@ const redis = new Redis({
     port: redisUrl.port, // Redis port
     host: redisUrl.hostname, // Redis host
     password: redisAuth[1],
+   
   });
+
+
+    console.log('redisHost', redisUrl.hostname);
+    console.log('redisPort', redisUrl.port);
+    console.log('redisDb', redisAuth[0]);
+    console.log('redisPass', redisAuth[1]);
 
 const revertLinkCache=async (req, res, next)=>{
     const {shortLink} = req.body
