@@ -1,5 +1,5 @@
 const { body, validationResult } = require('express-validator')
-const {validateResponse} = require('../services/response')
+const {validateResponse} = require('../../providers/helpers/response')
 
 exports.createLinkRules = () => {
     return [

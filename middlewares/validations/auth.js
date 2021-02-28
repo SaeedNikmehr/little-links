@@ -1,6 +1,6 @@
 const { body, validationResult } = require('express-validator')
-const {validateResponse} = require('../services/response')
-const User = require('../../models/User')
+const {validateResponse} = require('../../providers/helpers/response')
+const User = require('../../app/users/UserModel')
 
 exports.registerRules = () => {
     return [

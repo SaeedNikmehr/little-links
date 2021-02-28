@@ -15,11 +15,15 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 //connect to db and run server
-mongoose.connect(database.mongodb.url+database.mongodb.database,
-  { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect(database.mongodb.url+database.mongodb.database+'?authSource=admin',
+  { 
+    useUnifiedTopology: true, 
+    useNewUrlParser: true, 
+    useFindAndModify: false
+  })
   .then(result => {
     console.log(`connected to database`)
-
+    
     app.listen(port, () => {
       console.log(`listening on port ${port}`)
     });

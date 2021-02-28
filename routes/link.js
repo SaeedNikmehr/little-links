@@ -1,8 +1,8 @@
 const express = require('express')
-const LinkController = require('../app/controllers/LinkController')
-const validator = require('../app/providers/validations/link')
-const {revertLinkCache} = require('../app/middlewares/cache/redis')
-const {authJWT} = require('../app/middlewares/auth')
+const LinkController = require('../app/links/LinkController')
+const validator = require('../middlewares/validations/link')
+const {revertLinkCache} = require('../middlewares/cache/redis')
+const {authJWT} = require('../middlewares/auth')
 
 
 const router = express.Router();
