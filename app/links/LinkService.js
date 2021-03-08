@@ -1,5 +1,4 @@
-const {redis} = require('../../middlewares/cache/redis')
-const {base62Encode, base62Decode} = require('../../providers/helpers/base62')
+const {base62Encode, base62Decode} = require('../../services/base62')
 
 class LinkService{
     
@@ -9,6 +8,7 @@ class LinkService{
     
     async convert(originalLink){
         const result = await this.Link.create({originalLink})
+        
         const shortLink = await base62Encode(result.counter)
         const updated = await this.Link.updateOne({counter:result.counter}, { shortLink })
         const data = 
@@ -26,14 +26,10 @@ class LinkService{
         
     }
     
-    addToRedis({key, value, expireTime}){
-        redis.set(key, value, 'ex', expireTime)
-    }
-    
     
     async revert(shortLink){
         const counter = await base62Decode(shortLink)
-        const result = await this.Link.findOne({counter},'shortLink originalLink views expireDate')
+        const result = await this.Link.findOne({counter},'shortLink originalLink views expireDate').cache()
 
         if(result)
         return {status:"success", message:"link found successfully",data:result}

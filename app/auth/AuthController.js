@@ -2,7 +2,7 @@ const User = require('../users/UserModel')
 const AuthService = require('./AuthService')
 const AuthServiceInstance = new AuthService({User})
 
-const {wsResponse} = require('../../providers/helpers/response')
+const {wsResponse} = require('../../services/response')
 
 exports.register =async (req, res, next)=>{
     const {name , email , password} = req.body;

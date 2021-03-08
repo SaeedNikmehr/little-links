@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const path = require('path')
 const helmet = require('helmet')
+require('../services/cache')
 
 module.exports = (app)=>{
     app.use(bodyParser.urlencoded({extended:false}))
