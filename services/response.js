@@ -6,9 +6,12 @@ exports.validateResponse = (res, errors)=>{
 }
 
 
-exports.wsResponse = (res, result, source='api')=>{
+exports.wsResponse = (res, result)=>{
     let status = result.status || ''
     let message = [result?.message] 
-    let data = result.data || {}
-    res.json({status, message, data, source})
+    if(result.data){
+        let data = result.data || {}
+        return res.json({status, message, data})
+    }
+    return res.json({status, message})
 }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
+//const User = require('../users/UserModel');
 
 const Schema = mongoose.Schema;
 
@@ -12,6 +13,7 @@ const linkSchema = new Schema({
     counter: {type: Number,required: true},
     createdAt: { type: Date, default: Date.now },
     expireDate:{ type: Date, default: new Date(new Date().setFullYear(new Date().getFullYear() + 1)) },
+    user:{type: Schema.Types.ObjectId, ref: 'User'}
 });
 
 linkSchema.plugin(autoIncrement.plugin, { model: 'Link', field: 'counter' });

@@ -6,7 +6,8 @@ const {authJWT} = require('../middlewares/auth')
 
 const router = express.Router();
 
-router.post('/create', validator.createLinkRules() , validator.validate, LinkController.createLink)
+router.post('/create', validator.createLinkRules() , validator.validate, authJWT(false), LinkController.createLink)
+router.post('/create/customize', authJWT(), validator.createCustomizeLinkRules() , validator.validate, LinkController.createCustomizeLink)
 router.post('/revert', validator.revertLinkRules() , validator.validate, LinkController.revertLink)
 router.post('/test',LinkController.test)
 

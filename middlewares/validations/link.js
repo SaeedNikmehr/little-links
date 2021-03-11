@@ -9,7 +9,14 @@ exports.createLinkRules = () => {
 
 exports.revertLinkRules = () => {
     return [
-        body('shortLink').trim().not().isEmpty().isString().isLength({min:1,max:10}),
+        body('shortLink').trim().not().isEmpty().isString().isLength({min:1,max:50}),
+    ]
+}
+
+exports.createCustomizeLinkRules=()=>{
+    return [
+        body('originalLink').trim().not().isEmpty().isURL(),
+        body('shortLink').trim().not().isEmpty().isString().isLength({min:1,max:50})
     ]
 }
 
