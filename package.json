@@ -1,10 +1,10 @@
 {
   "name": "short_link",
   "version": "1.0.0",
-  "description": "",
+  "description": "A url shortener application",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon app.js"
   },
   "keywords": [],
@@ -22,9 +22,15 @@
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.12",
     "mongoose-auto-increment": "^5.0.1",
-    "redis": "^3.0.2"
+    "node-cron": "^3.0.0",
+    "redis": "^3.0.2",
+    "swagger-jsdoc": "6.0.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.6",
+    "chai": "*",
+    "mocha": "*",
+    "sinon": "^9.2.4"
   }
 }
